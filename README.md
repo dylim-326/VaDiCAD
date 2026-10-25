@@ -11,7 +11,6 @@
 > **Official repository for the undergraduate thesis (June 2026)**  
 > **Title**: *Trichomonas vaginalis Detection in Microscopic Smear Samples: A Performance Comparison of Deep Learning-Based Models*[cite: 33]  
 > **Author**: **Doyeon Lim** (HUFS Department of Biomedical Engineering)[cite: 33, 34]  
-> **Advisor**: **Prof. Bo-Hyoung Kim**[cite: 34]  
 > **Inference Demo**: Lightweight Streamlit Demo powered by the best-performing **YOLOv8** model for automated *Trichomonas vaginalis* detection[cite: 58]
 
 ---
