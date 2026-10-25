@@ -1,7 +1,7 @@
 # VaDiCAD: Trichomonas vaginalis Detection in Microscopic Smears
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white" alt="PyTorch">
   <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white" alt="Streamlit">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
@@ -28,8 +28,8 @@
 
 ## 🔬 Benchmark & Pipeline
 
-1. **Dataset**: 912 expert-annotated smear images from MVDI25K $\rightarrow$ expanded to **5,460 images** via geometric & optical augmentations (leak-free grouped split: 80% train / 10% val / 10% test).
-2. **Unified Evaluation**: To compare segmentation (COD) and detection (YOLO), predicted binary masks were converted into bounding boxes using OpenCV contour tracking ($IoU \ge 0.5$).
+1. **Dataset**: 912 expert-annotated smear images from MVDI25K → expanded to **5,460 images** via geometric & optical augmentations (leak-free grouped split: 80% train / 10% val / 10% test).
+2. **Unified Evaluation**: To compare segmentation (COD) and detection (YOLO), predicted binary masks were converted into bounding boxes using OpenCV contour tracking (\(IoU \ge 0.5\)).
 
 <p align="center">
   <img src="assets/fig4_mask_to_bbox.png" width="85%" alt="Mask to BBox Conversion">
@@ -41,8 +41,9 @@
 
 ## 📊 Key Results
 
-### 1. Unified Detection Benchmark ($IoU \ge 0.5$)
-| Model | Paradigm | Precision | Recall | $F_1$-Score | $\text{AP}_{50}$ |
+### 1. Unified Detection Benchmark (\(IoU \ge 0.5\))
+
+| Model | Paradigm | Precision | Recall | \(F_1\)-Score | \(AP_{50}\) |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **YOLOv5-s** | YOLO | **0.677** | **0.870** | **0.762** | 0.826 |
 | **YOLOv8-s** | YOLO | 0.676 | 0.859 | 0.757 | **0.850** |
@@ -52,7 +53,8 @@
 | **ZoomNet** | COD | 0.086 | 0.079 | 0.083 | 0.007 |
 
 ### 2. COD Boundary Segmentation Benchmark
-| Model | <span style="white-space:nowrap">S-measure ($S_m \uparrow$)</span> | <span style="white-space:nowrap">F-measure ($F_\beta \uparrow$)</span> | <span style="white-space:nowrap">MAE ($\downarrow$)</span> | Key Characteristics |
+
+| Model | S-measure (\(S_m \uparrow\)) | F-measure (\(F_\beta \uparrow\)) | MAE (\(\downarrow\)) | Key Characteristics |
 | :--- | :---: | :---: | :---: | :--- |
 | **DGNet** | **0.751** | **0.654** | **0.038** | Best boundary preservation with lowest pixel error |
 | **BGNet** | 0.734 | 0.618 | 0.043 | Edge-guided boundary refinement |
@@ -69,37 +71,62 @@
 
 ## 💡 Practical Takeaways
 
-- **Clinical Screening Lead**: **YOLOv5-s** achieved the highest screening sensitivity (**Recall: 0.870**) and overall balance (**$F_1$-Score: 0.762**), minimizing false negatives which is paramount in point-of-care clinical diagnostics.
-- **High-Confidence Ranking**: **YOLOv8-s** demonstrated superior precision-recall trade-offs at high confidence thresholds (**$\text{AP}_{50}$: 0.850**), benefiting from anchor-free regression.
-- **Fine Morphology**: **DGNet** captured faint protozoan membranes best ($S_m$ 0.751, MAE 0.038) under complex background clutter and cellular debris.
-- **Hybrid Pipeline Suggestion**: Initial rapid triage via **YOLOv5-s** (for high recall candidate extraction) followed by localized pixel-level boundary refinement via **DGNet** on ambiguous candidate ROIs.
+- **Clinical Screening Lead**: **YOLOv5-s** achieved the highest screening sensitivity (**Recall: 0.870**) and overall balance (**\(F_1\)-Score: 0.762**), minimizing false negatives which is paramount in point-of-care clinical diagnostics.
+- **High-Confidence Ranking**: **YOLOv8-s** demonstrated superior precision-recall trade-offs at high confidence thresholds (**\(AP_{50}\): 0.850**), benefiting from anchor-free regression.
+- **Fine Morphology**: **DGNet** captured faint protozoan membranes best (\(S_m\) 0.751, MAE 0.038) under complex background clutter and cellular debris.
+- **2-Stage Hybrid Architecture**:
+  - **Stage 1 (Screening)**: Rapid candidate extraction across 10 vaginal smear cell types via **YOLOv5-s**.
+  - **Stage 2 (Refinement)**: Localized pixel-level boundary segmentation via **DGNet** on ambiguous candidate ROIs to filter out leukocyte false positives and capture morphological traits.
 
 ---
 
 ## 🖥 Streamlit Demo
 
-A real-time diagnostic demo app running the fine-tuned YOLO detector. Upload a smear image to visualize predicted bounding boxes and filter confidence thresholds.
+A real-time point-of-care diagnostic demo featuring a **2-Stage Hybrid Pipeline**:
+
+- **Stage 1**: Multi-class bounding box detection with dynamic label badges and configurable box thickness.
+- **Stage 2**: Localized DGNet boundary segmentation on candidate *Trichomonas* ROIs.
+- **Analytics**: Quantitative cell distribution donut charts and summary metrics.
 
 ```bash
-# Clone and install
-git clone [https://github.com/dylim-326/VaDiCAD.git](https://github.com/dylim-326/VaDiCAD.git)
+# Clone repository
+git clone https://github.com/dylim-326/VaDiCAD.git
 cd VaDiCAD
+
+# Install verified dependencies
 pip install -r requirements.txt
 
-# Run demo
+# Launch web dashboard
 streamlit run app.py
+```
 
 ---
 
 ## 📂 Project Structure
 
-```bash
+```text
 VaDiCAD/
-├── assets/                  # Figures & smear sample visualizations
-├── data/                    # Preprocessing & clinical augmentation scripts
-├── models/                  # YOLO and COD architecture wrappers
-├── utils/                   # Mask-to-bbox converter & metric evaluators
-├── weights/                 # Fine-tuned model checkpoints (YOLOv5s & YOLOv8s)
-├── app.py                   # Streamlit inference dashboard
-├── requirements.txt         # Runtime dependencies
+├── assets/          # Figures & smear sample visualizations
+├── data/            # Preprocessing & clinical augmentation scripts
+├── models/          # YOLO and COD architecture wrappers
+├── utils/           # Mask-to-bbox converter & metric evaluators
+├── weights/         # Fine-tuned model checkpoints (YOLOv5s & YOLOv8s)
+├── app.py           # Streamlit inference dashboard
+├── requirements.txt # Runtime dependencies
 └── README.md
+```
+
+---
+
+## 📄 Citation & Acknowledgements
+
+This research was conducted as an undergraduate thesis project in the Department of Biomedical Engineering at Hankuk University of Foreign Studies (HUFS).
+
+```bibtex
+@article{vadicad2026trichomonas,
+  title={Performance Comparison of COD and YOLO Models for Trichomonas Detection in Microscopic Smear Specimens},
+  author={Lim, Do-Yeon and Kim, Bo-Hyoung},
+  journal={HUFS BME Undergraduate Thesis Archive},
+  year={2026}
+}
+```
