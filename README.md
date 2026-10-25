@@ -44,8 +44,8 @@
 ### 1. Unified Detection Benchmark ($IoU \ge 0.5$)
 | Model | Paradigm | Precision | Recall | $F_1$-Score | $\text{AP}_{50}$ |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **YOLOv8-s** | YOLO | 0.676 | 0.859 | 0.757 | **0.850** |
 | **YOLOv5-s** | YOLO | **0.677** | **0.870** | **0.762** | 0.826 |
+| **YOLOv8-s** | YOLO | 0.676 | 0.859 | 0.757 | **0.850** |
 | **SINet_V2** | COD | 0.374 | 0.503 | 0.429 | 0.198 |
 | **BGNet** | COD | 0.413 | 0.462 | 0.436 | 0.196 |
 | **DGNet** | COD | 0.376 | 0.515 | 0.435 | 0.196 |
@@ -69,15 +69,16 @@
 
 ## 💡 Practical Takeaways
 
-- **Fast Screening**: **YOLOv8-s** demonstrated the highest localization precision and $\text{AP}_{50}$ (0.850), proving most effective as a reliable single screening detector.
+- **Clinical Screening Lead**: **YOLOv5-s** achieved the highest screening sensitivity (**Recall: 0.870**) and overall balance (**$F_1$-Score: 0.762**), minimizing false negatives which is paramount in point-of-care clinical diagnostics.
+- **High-Confidence Ranking**: **YOLOv8-s** demonstrated superior precision-recall trade-offs at high confidence thresholds (**$\text{AP}_{50}$: 0.850**), benefiting from anchor-free regression.
 - **Fine Morphology**: **DGNet** captured faint protozoan membranes best ($S_m$ 0.751, MAE 0.038) under complex background clutter and cellular debris.
-- **Hybrid Pipeline Suggestion**: Fast global candidate screening via **YOLOv8-s** followed by localized fine segmentation via **DGNet** inside candidate ROIs.
+- **Hybrid Pipeline Suggestion**: Initial rapid triage via **YOLOv5-s** (for high recall candidate extraction) followed by localized pixel-level boundary refinement via **DGNet** on ambiguous candidate ROIs.
 
 ---
 
 ## 🖥 Streamlit Demo
 
-A real-time diagnostic demo app running the fine-tuned **YOLOv8-s** detector. Upload a smear image to visualize predicted bounding boxes in real time.
+A real-time diagnostic demo app running the fine-tuned YOLO detector. Upload a smear image to visualize predicted bounding boxes and filter confidence thresholds.
 
 ```bash
 # Clone and install
@@ -87,3 +88,18 @@ pip install -r requirements.txt
 
 # Run demo
 streamlit run app.py
+
+---
+
+## 📂 Project Structure
+
+```bash
+VaDiCAD/
+├── assets/                  # Figures & smear sample visualizations
+├── data/                    # Preprocessing & clinical augmentation scripts
+├── models/                  # YOLO and COD architecture wrappers
+├── utils/                   # Mask-to-bbox converter & metric evaluators
+├── weights/                 # Fine-tuned model checkpoints (YOLOv5s & YOLOv8s)
+├── app.py                   # Streamlit inference dashboard
+├── requirements.txt         # Runtime dependencies
+└── README.md
