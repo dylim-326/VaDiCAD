@@ -160,5 +160,11 @@ VaDiCAD/
 ```
 
 ## 🔗 References & Acknowledgements
-- **Dataset**: [MVDI25K](https://doi.org/10.1016/j.bmtse.2021.100008) — A large-scale dataset of microscopic vaginal discharge images (BenchCouncil 2021)[cite: 62]
-- **Architectures**: [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics), [DGNet](https://github.com/GewelsJI/DGNet)[cite: 63]
+
+* **Dataset**: [MVDI25K (Zenodo)](https://zenodo.org/records/5523661) — *A Large-Scale Dataset of Microscopic Vaginal Discharge Images* (BenchCouncil 2021)
+* **Model Architectures & Implementations**:
+  * **YOLO Series**: [Ultralytics YOLOv8 & YOLOv5](https://github.com/ultralytics/ultralytics)
+  * **DGNet**: [DGNet Official Repository](https://github.com/GewelsJI/DGNet)
+  * **BGNet**: [BGNet Official Repository](https://github.com/thograce/BGNet)
+  * **SINet-V2**: [SINet-V2 Official Repository](https://github.com/GewelsJI/SINet-V2)
+  * **ZoomNet**: [ZoomNet Official Repository](https://github.com/lartpang/ZoomNet)
