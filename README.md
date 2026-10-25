@@ -29,7 +29,7 @@
 ## 🔬 Benchmark & Pipeline
 
 1. **Dataset**: 912 expert-annotated smear images from MVDI25K → expanded to **5,460 images** via geometric & optical augmentations (leak-free grouped split: 80% train / 10% val / 10% test).
-2. **Unified Evaluation**: To compare segmentation (COD) and detection (YOLO), predicted binary masks were converted into bounding boxes using OpenCV contour tracking (\(IoU \ge 0.5\)).
+2. **Unified Evaluation**: To compare segmentation (COD) and detection (YOLO), predicted binary masks were converted into bounding boxes using OpenCV contour tracking ($IoU \ge 0.5$).
 
 <p align="center">
   <img src="assets/fig4_mask_to_bbox.png" width="85%" alt="Mask to BBox Conversion">
@@ -41,9 +41,9 @@
 
 ## 📊 Key Results
 
-### 1. Unified Detection Benchmark (\(IoU \ge 0.5\))
+### 1. Unified Detection Benchmark ($IoU \ge 0.5$)
 
-| Model | Paradigm | Precision | Recall | \(F_1\)-Score | \(AP_{50}\) |
+| Model | Paradigm | Precision | Recall | $F_1$-Score | $\text{AP}_{50}$ |
 | :--- | :---: | :---: | :---: | :---: | :---: |
 | **YOLOv5-s** | YOLO | **0.677** | **0.870** | **0.762** | 0.826 |
 | **YOLOv8-s** | YOLO | 0.676 | 0.859 | 0.757 | **0.850** |
@@ -54,7 +54,7 @@
 
 ### 2. COD Boundary Segmentation Benchmark
 
-| Model | S-measure (\(S_m \uparrow\)) | F-measure (\(F_\beta \uparrow\)) | MAE (\(\downarrow\)) | Key Characteristics |
+| Model | S-measure ($S_m \uparrow$) | F-measure ($F_\beta \uparrow$) | MAE ($\downarrow$) | Key Characteristics |
 | :--- | :---: | :---: | :---: | :--- |
 | **DGNet** | **0.751** | **0.654** | **0.038** | Best boundary preservation with lowest pixel error |
 | **BGNet** | 0.734 | 0.618 | 0.043 | Edge-guided boundary refinement |
@@ -71,9 +71,9 @@
 
 ## 💡 Practical Takeaways
 
-- **Clinical Screening Lead**: **YOLOv5-s** achieved the highest screening sensitivity (**Recall: 0.870**) and overall balance (**\(F_1\)-Score: 0.762**), minimizing false negatives which is paramount in point-of-care clinical diagnostics.
-- **High-Confidence Ranking**: **YOLOv8-s** demonstrated superior precision-recall trade-offs at high confidence thresholds (**\(AP_{50}\): 0.850**), benefiting from anchor-free regression.
-- **Fine Morphology**: **DGNet** captured faint protozoan membranes best (\(S_m\) 0.751, MAE 0.038) under complex background clutter and cellular debris.
+- **Clinical Screening Lead**: **YOLOv5-s** achieved the highest screening sensitivity (**Recall: 0.870**) and overall balance (**$F_1$-Score: 0.762**), minimizing false negatives which is paramount in point-of-care clinical diagnostics.
+- **High-Confidence Ranking**: **YOLOv8-s** demonstrated superior precision-recall trade-offs at high confidence thresholds (**$\text{AP}_{50}$: 0.850**), benefiting from anchor-free regression.
+- **Fine Morphology**: **DGNet** captured faint protozoan membranes best ($S_m$ 0.751, MAE 0.038) under complex background clutter and cellular debris.
 - **2-Stage Hybrid Architecture**:
   - **Stage 1 (Screening)**: Rapid candidate extraction across 10 vaginal smear cell types via **YOLOv5-s**.
   - **Stage 2 (Refinement)**: Localized pixel-level boundary segmentation via **DGNet** on ambiguous candidate ROIs to filter out leukocyte false positives and capture morphological traits.
@@ -90,7 +90,7 @@ A real-time point-of-care diagnostic demo featuring a **2-Stage Hybrid Pipeline*
 
 ```bash
 # Clone repository
-git clone https://github.com/dylim-326/VaDiCAD.git
+git clone [https://github.com/dylim-326/VaDiCAD.git](https://github.com/dylim-326/VaDiCAD.git)
 cd VaDiCAD
 
 # Install verified dependencies
@@ -98,7 +98,6 @@ pip install -r requirements.txt
 
 # Launch web dashboard
 streamlit run app.py
-```
 
 ---
 
