@@ -31,15 +31,19 @@ This repository conducts a systematic benchmark comparing standard **Object Dete
 
 ## ⚠️ Problem Formulation & Motivation
 
-Previous large-scale benchmarks (e.g., MVDI25K) demonstrated that off-the-shelf YOLO detectors often suffer from high False Positive rates and missed detections (False Negatives) when dealing with camouflaged protozoa. 
+Previous large-scale benchmarks (e.g., MVDI25K) demonstrated that off-the-shelf YOLO detectors often suffer from high False Positive rates and missed detections (False Negatives) when dealing with camouflaged protozoa[cite: 39, 40]. 
 
 <p align="center">
-  <img src="assets/fig1_yolo_mvdi25k.png" width="85%" alt="MVDI25K YOLO Limitations">
+  <!-- 상단: 모델별 객체 탐지 결과 이미지 -->
+  <img src="assets/fig1_mvdi25k_detection.png" width="90%" alt="MVDI25K Detection Results">
   <br>
-  <em>Figure 2. Object detection results from the MVDI25K benchmark across YOLOv5 scales. Notice that genuine Trichomonas vaginalis targets (green bounding boxes) are partially missed (False Negatives) across all YOLOv5 variants due to camouflage effects.</em>
+  <!-- 하단: 영문 클래스 범례 이미지 -->
+  <img src="assets/fig1_mvdi25k_legend.png" width="90%" alt="MVDI25K Class Legend">
+  <br>
+  <em>Figure 2. Object detection results from the MVDI25K benchmark across YOLOv5 scales. Genuine Trichomonas vaginalis targets (light green bounding boxes) are frequently missed (False Negatives) across all YOLOv5 variants due to visual camouflage into complex background debris[cite: 41].</em>
 </p>
 
-To address this morphological constraint, this study implements and evaluates COD models specifically engineered to segment hidden boundaries, comparing them directly against YOLO detectors under a standardized evaluation protocol.
+To address this morphological constraint, this study implements and evaluates COD models specifically engineered to segment hidden boundaries, comparing them directly against YOLO detectors under a standardized evaluation protocol[cite: 42, 43].
 
 ---
 
